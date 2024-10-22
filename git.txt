@@ -1,3 +1,25 @@
+Авторизация:
+
+    Работа с токеном:
+        
+        (стоит один раз так склонировать репу и логин пароль спрашиваться больше не будет)
+        
+        git clone https://<логин>:<токен/пароль>@<url репы>
+
+        или скрипт
+
+        > copy.sh
+        
+        chmod +x copy.sh
+
+            login=$1
+            password=$2  # password/token
+            url=$3
+            git clone https://"$login":"$password"@"$url"
+        
+        ./copy.sh user1 qwerty github.com/blabla.git
+
+
 Добавление воторого источника кода к уже имеющемуся:
 
     Т.е. уже гит репа, и к ней нужно добавить ещё одну
@@ -28,7 +50,7 @@
 
     7. Переключаемся на тестовую вутку:
 
-        git chekout <имя тестовой ветки>
+        git checkout <имя тестовой ветки>
 
     8. Ещё раз пытаемся стянуть ветку из ворого источника для актуализации данных:
 
@@ -45,5 +67,20 @@
         3. git remote add otto_app github.com/otto/app_xxx.git
         5. git fetch otto_app
         6. git branch otto_test otto_app/master
-        7. git chekout otto_test
+        7. git checkout otto_test
         8. git pull
+
+    
+Добавление второй репы к проету:
+
+    Смотрим текущие источники репы:
+
+        git remote -v
+
+    Смотрим текущие ветки:
+
+        git branch
+    
+    Клонирование репы с логином и токено/паролем
+
+        git clone https://<логин>:<токен/пароль>@<url репы>

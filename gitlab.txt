@@ -1,0 +1,37 @@
+API:
+
+    Ветки:
+
+        https://docs.gitlab.com/ee/api/branches.html
+
+
+        vars:
+
+            url=https://example.com:8929/group1/rep1.git
+            token=<...>
+            srv=https://example.com:8929
+            id=10
+            name=group1%2Frep1 (в имени проекта "/" заменить на "%2F")
+    
+        Просмотр веток репы:
+
+            curl \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$id/repository/branches"
+
+            или
+
+            curl \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$name/repository/branches"
+
+        Создание новой ветки:
+
+            from=main
+            new=new_branch
+
+            curl \
+            --request POST \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$id/repository/branches?branch=$new&ref=$from"
+
