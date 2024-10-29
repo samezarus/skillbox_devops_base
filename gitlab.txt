@@ -10,7 +10,7 @@ API:
             url=https://example.com:8929/group1/rep1.git
             token=<...>
             srv=https://example.com:8929
-            id=10
+            id=10  # General Settings -> Naming, description, topics -> Project ID
             name=group1%2Frep1 (в имени проекта "/" заменить на "%2F")
     
         Просмотр веток репы:
@@ -28,10 +28,18 @@ API:
         Создание новой ветки:
 
             from=main
-            new=new_branch
+            new=<имя новой ветки>
 
             curl \
             --request POST \
             --header "PRIVATE-TOKEN: $token" \
             --url "$srv/api/v4/projects/$id/repository/branches?branch=$new&ref=$from"
 
+        Удаление ветки:
+
+            delbr=<имя ветки>
+
+            curl \
+            --request DELETE \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$id/repository/branches/$delbr"
