@@ -1,56 +1,44 @@
-CI (Continuous Integration):
-    
-    Баги 
-    Проверка качества кода 
-    Проверка производительности
-    Проверка безопасности
+API:
 
-Термины:
+    Ветки:
 
-    Pipline - сценарий
+        https://docs.gitlab.com/ee/api/branches.html
 
-    Stage - этапы
+        vars:
 
-    Job - задача
+            url=https://example.com:8929/group1/rep1.git
+            token=<...>
+            srv=https://example.com:8929
+            id=10  # General Settings -> Naming, description, topics -> Project ID
+            name=group1%2Frep1 (в имени проекта "/" заменить на "%2F")
 
-.gitlab-ci.yaml:
+        Просмотр веток репы:
 
-    stages:
-        - test
-        - build
-    
-    test1:
-        stage: test
-        script:
-            - echo "test1"
+            curl \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$id/repository/branches"
 
-    test2:
-        stage: test
-        script:
-            - echo "test2"
+            или
 
-    build:
-        stage: build
-        script:
-            - echo "./build.sh"
-        when: manual (если нужно запускать руками)
-        only: master (если нужно выполнить в указанной ветке)
+            curl \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$name/repository/branches"
 
-Типы деплоя:
+        Создание новой ветки:
 
-    blue-green deployment:
+            from=main
+            new=<имя новой ветки>
 
+            curl \
+            --request POST \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$id/repository/branches?branch=$new&ref=$from"
 
-    canary deployment:
+        Удаление ветки:
 
-Переменные:
+            delbr=<имя ветки>
 
-    Предопределённые:
-
-        https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-
-    Пользовательские:
-
-        Через web-интерфейс "settings -> ci_cd -> variables"
-
-        
+            curl \
+            --request DELETE \
+            --header "PRIVATE-TOKEN: $token" \
+            --url "$srv/api/v4/projects/$id/repository/branches/$delbr"
