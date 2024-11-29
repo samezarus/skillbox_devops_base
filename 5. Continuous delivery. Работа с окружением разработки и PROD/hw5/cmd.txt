@@ -1,0 +1,109 @@
+Задание 1
+
+    https://gitlab.skillbox.ru/devops4/deploy_react_app_to_the_cloud
+
+    Prod:
+        http://soluyanovdev.ru:8080/
+
+    Stage:
+        http://soluyanovdev.ru:8081/
+
+
+    gitlab-runner docker:
+
+        Поднимаем:
+
+            https://docs.gitlab.com/runner/install/docker.html
+
+            local system volume:
+
+                docker run -d \
+                --name gitlab-runner \
+                --restart always \
+                -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                gitlab/gitlab-runner:latest
+
+        Регистрируем:
+
+            https://docs.gitlab.com/runner/register/?tab=Docker
+
+            local system volume:
+
+                docker run --rm -it \
+                -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+                gitlab/gitlab-runner register
+
+                Executor: docker
+                
+                Default docker image: ruby:2.7
+
+    Пост-конфигурация:
+
+        /srv/gitlab-runner/config/config.toml
+
+            volumes = ["/cache"] -> volumes = ["/cache", "/var/www:/www:rw"]
+
+    variables
+
+        REACT_APP_WEBSITE_PREFIX: "" - что бы в тайтле продовской страницы не было ерунды
+
+    src/App.js
+
+        Добавлял версию, что бы было видно что откат есть
+
+            <h1>Test of revert v<цифра></h1>
+
+    .gitlab-ci.yml
+
+            Добавил этап с созданием каталогов (для первого запуска)
+
+                - mkdir -p $docker_html_path/test-app
+                - mkdir -p $docker_html_path/staging
+
+            revert1->script
+
+                - cp -Pv --remove-destination $docker_html_path/test-app/$CI_COMMIT_SHA/prev-version $docker_html_path/html
+
+                заменил на
+
+                - cp -Pv --remove-destination $docker_html_path/test-app/${env}_$CI_COMMIT_SHA/prev-version $docker_html_path/html
+
+            revert2->script
+
+                копия revert1->script, но с заменой $CI_COMMIT_SHA -> $CI_COMMIT_BEFORE_SHA
+
+Задание 2
+
+    https://gitlab.skillbox.ru/devops4/deploy_react_app_to_the_cloud
+
+    Prod:
+        http://soluyanovdev.ru:8080/
+
+    Stage:
+        http://soluyanovdev.ru:8081/
+
+
+    .gitlab-ci.yml
+
+        build_staging->variables
+
+            REACT_APP_WEBSITE_PREFIX: "[staging] " -> REACT_APP_WEBSITE_PREFIX: "[branch=$CI_COMMIT_BRANCH] "
+
+Задание 3
+
+    https://gitlab.skillbox.ru/devops4/static_site_green_blue
+
+    Prod:
+        http://soluyanovdev.ru:9090/
+
+    Stage: 
+        http://soluyanovdev.ru:9091/
+
+    Большая часть сдела по образцу из 1/2 заданий
+
+    Статический файл - это простая html-ка
+
+    Раннер не в докере, а хостовый.
+
+ 

@@ -1,0 +1,19 @@
+https://www.dmosk.ru/miniinstruktions.php?mini=gitlab-runner-web
+
+
+sudo gitlab-runner register - ТОЛЬКО ПОД SUDO !!!!!!!!!!!!!!
+
+Статус:
+
+    systemctl status gitlab-runner
+
+
+Автостарт после установки:
+
+    systemctl enable gitlab-runner --now
+
+После добавления в gitlab надо сделать:
+    
+    sudo gitlab-runner verify
+    sudo gitlab-runner start
+    sudo gitlab-runner run

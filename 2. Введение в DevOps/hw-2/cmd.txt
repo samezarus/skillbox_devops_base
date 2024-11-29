@@ -1,0 +1,59 @@
+Roadmap по домашке:
+
+0. Перейдите в GitLab Skillbox по кнопке внизу и повторите в своём репозитории 
+действия, которые были показаны в видео.
+
+Если имелось ввиду, что нужно затянуть любую репу из любого источника, то создал свою
+для теста - https://github.com/samezarus/fake_repo.git
+
+Сделал все действия из видео:
+
+    git remote add ext_dev https://github.com/samezarus/fake_repo.git
+    git fetch ext_dev
+    git branch ext_dev_test ext_dev/main
+    git checkout ext_dev_test
+    git pull
+    git push -u origin -o merge_request.create
+
+1. Добавьте файл с инструкциями для GitLab CI.
+
+Добавил ".gitlab-ci.yml".
+
+2. Опишите этап автоматического тестирования
+
+Если имелось ввиду написать в файле ".gitlab-ci.yml" - написал.
+
+3. Опишите этап сборки приложения
+
+Если имелось ввиду написать в файле ".gitlab-ci.yml" - написал.
+
+4. Добавьте дополнительную задачу, которая запустит абстрактный тест на приложение после сборки
+
+Добавил "build-test".
+
+5. Установите раннер и зарегистрируйте его на своём сервере без тегов с 
+типом executor — Shell. Также отключите shared-раннеры в проекте
+
+Сделал.
+
+6. Скрины:
+
+    Скриншоты прохождения всех джобов из вашего .gitlab-ci.yml:
+
+        gitlab_jobs.png
+
+    Скриншоты с процессом установки раннера и его подключения к GitLab CI:
+
+        gitlab-runner_install_1.png
+        gitlab-runner_install_2.png
+
+        gitlab-runner_config.png
+
+        add_gitlab-runner_to_skillbox_gitlab.png
+
+ps:
+
+Приiлось повозиться с выолнением раннером заданий. 
+Эмпирическим путём выяснил что инициализация раннера для 
+репы должна быть из под sudo, в противном случае,
+в /etc/gitlab-runner/config.toml не записывается блок [[runners]]...

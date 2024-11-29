@@ -1,0 +1,56 @@
+CI (Continuous Integration):
+    
+    Баги 
+    Проверка качества кода 
+    Проверка производительности
+    Проверка безопасности
+
+Термины:
+
+    Pipline - сценарий
+
+    Stage - этапы
+
+    Job - задача
+
+.gitlab-ci.yaml:
+
+    stages:
+        - test
+        - build
+    
+    test1:
+        stage: test
+        script:
+            - echo "test1"
+
+    test2:
+        stage: test
+        script:
+            - echo "test2"
+
+    build:
+        stage: build
+        script:
+            - echo "./build.sh"
+        when: manual (если нужно запускать руками)
+        only: master (если нужно выполнить в указанной ветке)
+
+Типы деплоя:
+
+    blue-green deployment:
+
+
+    canary deployment:
+
+Переменные:
+
+    Предопределённые:
+
+        https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+
+    Пользовательские:
+
+        Через web-интерфейс "settings -> ci_cd -> variables"
+
+        

@@ -1,3 +1,5 @@
+
+
 Добавление воторого источника кода к уже имеющемуся:
 
     Т.е. уже гит репа, и к ней нужно добавить ещё одну
@@ -28,7 +30,7 @@
 
     7. Переключаемся на тестовую вутку:
 
-        git chekout <имя тестовой ветки>
+        git checkout <имя тестовой ветки>
 
     8. Ещё раз пытаемся стянуть ветку из ворого источника для актуализации данных:
 
@@ -45,5 +47,6 @@
         3. git remote add otto_app github.com/otto/app_xxx.git
         5. git fetch otto_app
         6. git branch otto_test otto_app/master
-        7. git chekout otto_test
+        7. git git checkout ext_dev_test otto_test
         8. git pull
+        9. git push -u origin -o merge_request.create

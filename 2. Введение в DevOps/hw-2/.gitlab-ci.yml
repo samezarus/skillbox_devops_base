@@ -1,0 +1,23 @@
+stages:
+    - test
+    - build
+    
+test1:
+    stage: test
+    script:
+        - echo "test1"
+
+test2:
+    stage: test
+    script:
+        - echo "test2"
+
+build:
+    stage: build
+    script:
+        - echo "./build.sh"
+
+build-test:
+    stage: build
+    script:
+        - echo "./build-test.sh"
