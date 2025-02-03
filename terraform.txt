@@ -1,6 +1,0 @@
-https://developer.hashicorp.com/terraform/cli
-
-Install:
-
-    sudo snap install terraform --classic
-
